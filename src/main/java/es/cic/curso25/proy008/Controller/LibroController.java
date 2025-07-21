@@ -1,5 +1,7 @@
 package es.cic.curso25.proy008.Controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import es.cic.curso25.proy008.service.LibroService;
-import es.cic.curso25.proy008.model.Libro;
+import es.cic.curso25.proy008.Service.LibroService;
+import es.cic.curso25.proy008.Model.Libro;
 
 
 @RestControllerAdvice
@@ -32,7 +34,7 @@ public class LibroController {
     public long create (@RequestBody Libro libro){
          LOGGER.info("Crear un libro"+ libro);
 
-        if(libro.getId!= null){
+        if(libro.getId()!= null){
             //throw new ModificacionSecurityException("Necesito mensaje");
 
         }
@@ -50,17 +52,17 @@ public class LibroController {
     @GetMapping("/{id}")
     public Libro getId(@PathVariable Long id){
         LOGGER.info("Obtener un libro por id"+id);
-        return libroService.getId(id);
+        return libroService.get1(id);
     }  
     //Obtiene los libros por el nombre del autor
     @GetMapping("/autor/{autor}")
-    public List<Libro> getSabor(@PathVariable String autor){
+    public List<Libro> getAutor(@PathVariable String autor){
         LOGGER.info("Obtener los libros escritos por el autor"+autor);
         return libroService.getAutor(autor);
     } 
     //Obtiene una croqueta por sabor 
     @GetMapping("/nombreLibro/{nombreLibro}")
-    public List<Libro> getSabor(@PathVariable String nombreLibro){
+    public List<Libro> getNombreLibro(@PathVariable String nombreLibro){
         LOGGER.info("Obtener los libros por el titulo"+nombreLibro);
         return libroService.getNombreLibro(nombreLibro);
     }
@@ -68,7 +70,7 @@ public class LibroController {
     @GetMapping("/añoDePublicacion/{añoDePublicacion}")
     public List<Libro> getAñoDePublicacion(@PathVariable int añoDePublicacion){
         LOGGER.info("Obtener los libros publicados en el año"+añoDePublicacion);
-        return libroService.setAñoDePublicacion(añoDePublicacion);
+        return libroService.getAñoDePublicacion(añoDePublicacion);
     }
      //PUT
     //Actualiza un registro de libro
