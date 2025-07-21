@@ -42,7 +42,19 @@ public class BibliotecaService{
     }
 
   
+    // Actualizar Biblioteca existente
+    public Biblioteca actualizarBiblioteca(Long id, Biblioteca bibliotecaActualizada) {
+        // Buscar si existe una biblioteca con el id dado
+        Biblioteca biblioteca = bibliotecaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró la biblioteca con ID: " + id));
+
+        // Actualizamos campos
+        biblioteca.setNombre(bibliotecaActualizada.getNombre());
+        biblioteca.setDireccion(bibliotecaActualizada.getDireccion());
     
+        return bibliotecaRepository.save(biblioteca);
+    }
+
 
     
 
