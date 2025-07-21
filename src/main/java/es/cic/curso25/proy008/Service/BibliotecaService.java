@@ -26,19 +26,28 @@ public class BibliotecaService{
 
 
     //En momento de excepcion el Optional cambia a Biblioteca
-    public Optional<Biblioteca> buscarPorId(Long id){
-        return bibliotecaRepository.findById(id);
+    //Busca por Id
+    public Biblioteca buscarPorId(Long id){
+        return bibliotecaRepository.findById(id)
+        .orElseThrow(() -> new BibliotecaNotFoundException(id));
+
     }
 
     //Crea Biblioteca
     public Biblioteca crearBiblioteca(Biblioteca biblioteca){
+        if (biblioteca.getId() != null && biblioteca.getId() != 0) {
+        throw new IdManualNoPermitidoException();
+    }
         return bibliotecaRepository.save(biblioteca);
     }
 
     //Eliminar por Id
 
-    public void eliminarBiblioteca(Long id){
-        bibliotecaRepository.deleteById(id);
+    public void eliminarBiblioteca(Long id) {
+    if (!bibliotecaRepository.existsById(id)) {
+        throw new BibliotecaNotFoundException(id);
+    }
+    bibliotecaRepository.deleteById(id);
     }
 
   
@@ -46,7 +55,7 @@ public class BibliotecaService{
     public Biblioteca actualizarBiblioteca(Long id, Biblioteca bibliotecaActualizada) {
         // Buscar si existe una biblioteca con el id dado
         Biblioteca biblioteca = bibliotecaRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No se encontró la biblioteca con ID: " + id));
+                .orElseThrow(() -> new BibliotecaNotFoundException(id));
 
         // Actualizamos campos
         biblioteca.setNombre(bibliotecaActualizada.getNombre());

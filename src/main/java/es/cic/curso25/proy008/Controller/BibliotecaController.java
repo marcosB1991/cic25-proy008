@@ -27,10 +27,10 @@ public class BibliotecaController {
     // GET: Buscar biblioteca por ID
     @GetMapping("/{id}")
     public ResponseEntity<Biblioteca> buscarPorId(@PathVariable Long id) {
-        Optional<Biblioteca> biblioteca = bibliotecaService.buscarPorId(id);
-        return biblioteca.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
-    }
+    Biblioteca biblioteca = bibliotecaService.buscarPorId(id);
+    return ResponseEntity.ok(biblioteca);
+}
+
 
     // POST: Crear una nueva biblioteca
     @PostMapping
