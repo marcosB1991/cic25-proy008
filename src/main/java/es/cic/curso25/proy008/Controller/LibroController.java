@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,12 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import es.cic.curso25.proy008.Service.LibroService;
 import es.cic.curso25.proy008.Model.Libro;
 
 
-@RestControllerAdvice
+@RestController
 @RequestMapping("/libro")
 public class LibroController {
      private static final Logger LOGGER = LoggerFactory.getLogger(LibroController.class);
@@ -30,13 +32,13 @@ public class LibroController {
 
     //crear un libro (objeto)
     @PostMapping
-    public long create (@RequestBody Libro libro){
+    public Libro create (@RequestBody Libro libro){
          LOGGER.info("Crear un libro"+ libro);
 
-        if(libro.getId()!= null){
+        //if(libro.getId()!= null){
             //throw new ModificacionSecurityException("Necesito mensaje");
 
-        }
+        //}
         return libroService.create(libro);
 
     }
@@ -51,7 +53,7 @@ public class LibroController {
     @GetMapping("/{id}")
     public Libro getId(@PathVariable Long id){
         LOGGER.info("Obtener un libro por id"+id);
-        return libroService.get1(id);
+        return libroService.getId(id);
     }  
     //Obtiene los libros por el nombre del autor
     @GetMapping("/autor/{autor}")
