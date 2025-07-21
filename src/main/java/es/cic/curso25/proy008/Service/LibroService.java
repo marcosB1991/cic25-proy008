@@ -20,11 +20,10 @@ public class LibroService {
 
     
     //crea un libro
-    public long create(Libro libro){
+    public Libro create(Libro libro){
 
         LOGGER.info("Creo el libro" + libro);
-        return libroRepository.save(libro)
-                              .getId();
+        return libroRepository.save(libro);
     }
 
 
@@ -36,7 +35,7 @@ public class LibroService {
     }
 
     //Obtiene un libro por id
-    public Libro get1(Long id){
+    public Libro getId(Long id){
         LOGGER.info("Obtengo el libro con el id" + id);
         return libroRepository.findById(id).orElse(null);
     }
