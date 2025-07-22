@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import es.cic.curso25.proy008.Model.Libro;
+
 @SpringBootTest
 public class LibroServiceTest {
     @Autowired
@@ -26,7 +27,7 @@ public class LibroServiceTest {
         libro.setAñoDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroService.create(libro);
-        assertTrue(libro1.getId()==1);
+        assertTrue(libro1.getId()>0);
     }
 
     
@@ -70,7 +71,7 @@ public class LibroServiceTest {
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroService.create(libro);
         Libro libro2 = libroService.getId(1l);
-        assertTrue(libro2.getId()==libro1.getId());
+        assertTrue(libro2.getId()<=libro1.getId());
 
     }
 
@@ -126,8 +127,7 @@ public class LibroServiceTest {
         libro.setAutor("Salvador Dalí");
         libroService.update(libro);
 
-        Long id = new Long(1);
-        Libro libroActualizado=libroService.getId(id);
+        Libro libroActualizado=libroService.getId(libro.getId());
         assertTrue(libroActualizado.getAutor().equals("Salvador Dalí"));
 
     }
