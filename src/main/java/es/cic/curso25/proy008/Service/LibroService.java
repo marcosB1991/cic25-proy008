@@ -30,7 +30,7 @@ public class LibroService {
     }
 
 
-    //lista todas las croquetas
+    //lista todas los libros
     public List<Libro> get(){
 
         LOGGER.info("Obtengo todos los libros");
@@ -49,7 +49,7 @@ public class LibroService {
         return libroRepository.findByAutor(autor);
     }
 
-    //Obtiene un listado de croquetas por restaurante
+    //Obtiene un listado de libros por el nombre del libro
     public List<Libro> getNombreLibro(String nombreLibro){
         LOGGER.info("Obtengo el nombre del libro"+nombreLibro);
         return libroRepository.findByNombreLibro(nombreLibro);
@@ -68,7 +68,7 @@ public class LibroService {
         libroRepository.save(libro);
     }
 
-    //DELETE
+    
     //Borra un libro por id
     public void delete(long id){
         LOGGER.info("Eliminando el libro con id"+ id);

@@ -47,7 +47,7 @@ public class LibroController {
         LOGGER.info("Hacer una lista con los libros o");
         return libroService.get();
     }
-    //Obtener la croqueta con id...
+    //Obtener el libro con id...
     @GetMapping("/{id}")
     public Libro getId(@PathVariable Long id){
         LOGGER.info("Obtener un libro por id"+id);
@@ -59,7 +59,7 @@ public class LibroController {
         LOGGER.info("Obtener los libros escritos por el autor"+autor);
         return libroService.getAutor(autor);
     } 
-    //Obtiene una croqueta por sabor 
+    //Obtiene los libros por el nombre del libro 
     @GetMapping("/nombreLibro/{nombreLibro}")
     public List<Libro> getNombreLibro(@PathVariable String nombreLibro){
         LOGGER.info("Obtener los libros por el titulo"+nombreLibro);
@@ -71,7 +71,7 @@ public class LibroController {
         LOGGER.info("Obtener los libros publicados en el año"+añoDePublicacion);
         return libroService.getAñoDePublicacion(añoDePublicacion);
     }
-     //PUT
+
     //Actualiza un registro de libro
     @PutMapping("/{id}")
     public void update (@RequestBody Libro libro){
@@ -79,7 +79,6 @@ public class LibroController {
         libroService.update(libro);
     }
 
-    //DELETE
     //Borrra un libro por id
     @DeleteMapping("/{id}")  
     public void delete(@PathVariable long id){
