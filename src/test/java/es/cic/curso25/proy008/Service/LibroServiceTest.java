@@ -1,17 +1,14 @@
 package es.cic.curso25.proy008.Service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.List;
 import java.util.ArrayList;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import es.cic.curso25.proy008.Model.Libro;
 
 @SpringBootTest
@@ -30,7 +27,6 @@ public class LibroServiceTest {
         assertTrue(libro1.getId()>0);
     }
 
-    
 
     @Test
     void testDelete() {

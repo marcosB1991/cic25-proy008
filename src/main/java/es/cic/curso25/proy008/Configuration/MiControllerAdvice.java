@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
+import es.cic.curso25.proy008.Service.LibroNoCreadoException;
+import es.cic.curso25.proy008.Service.LibroNoEliminadoException;
 
 @RestControllerAdvice
 public class MiControllerAdvice {
+     private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
@@ -29,6 +32,20 @@ public class MiControllerAdvice {
         ex.printStackTrace();
         return ex.getMessage();
     }
+    @ExceptionHandler(LibroNoEliminadoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleLibroNoEliminado(LibroNoEliminadoException ex){
+        LOGGER.error("El libro no se ha podido eliminar y se lanza la excepción", ex);
+        ex.printStackTrace();
+        return ex.getMessage();
+    }
+    @ExceptionHandler(LibroNoCreadoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleLibroNoCreado(LibroNoCreadoException ex){
+
+        LOGGER.error("El libro no se ha podido crear y se lanza la excepción", ex);
+        ex.printStackTrace();
+        return ex.getMessage();
 
     // Manejador genérico para cualquier excepción no controlada
     @ExceptionHandler(Exception.class)
