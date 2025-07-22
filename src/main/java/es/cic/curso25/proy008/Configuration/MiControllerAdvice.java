@@ -6,31 +6,32 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-
-import es.cic.curso25.proy008.Controller.LibroController;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
 import es.cic.curso25.proy008.Service.LibroNoCreadoException;
 import es.cic.curso25.proy008.Service.LibroNoEliminadoException;
 
-
-
 @RestControllerAdvice
 public class MiControllerAdvice {
      private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
-     @ExceptionHandler(BibliotecaNotFoundException.class)
+    private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
+
+    @ExceptionHandler(BibliotecaNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) // Devuelve 404
     public String handleBibliotecaNotFound(BibliotecaNotFoundException ex) {
+        LOGGER.warn("{}", ex.getMessage());
+        ex.printStackTrace();
         return ex.getMessage();
     }
 
     @ExceptionHandler(IdManualNoPermitidoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Devuelve 400
     public String handleIdManualNoPermitido(IdManualNoPermitidoException ex) {
+        LOGGER.error("Intento de creación con ID manual: {}", ex.getMessage());
+        ex.printStackTrace();
         return ex.getMessage();
     }
-
     @ExceptionHandler(LibroNoEliminadoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleLibroNoEliminado(LibroNoEliminadoException ex){
@@ -45,6 +46,14 @@ public class MiControllerAdvice {
         LOGGER.error("El libro no se ha podido crear y se lanza la excepción", ex);
         ex.printStackTrace();
         return ex.getMessage();
+
+    // Manejador genérico para cualquier excepción no controlada
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // Devuelve 500
+    public String handleGeneralException(Exception ex) {
+        LOGGER.error("Error inesperado: {}", ex.getMessage(), ex);
+        ex.printStackTrace();
+        return "Ha ocurrido un error interno en el servidor.";
     }
 }
 

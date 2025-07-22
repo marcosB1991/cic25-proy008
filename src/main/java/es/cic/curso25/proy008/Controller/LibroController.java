@@ -73,7 +73,7 @@ public class LibroController {
     }
      //PUT
     //Actualiza un registro de libro
-    @PutMapping
+    @PutMapping("/{id}")
     public void update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
         libroService.update(libro);
@@ -81,7 +81,7 @@ public class LibroController {
 
     //DELETE
     //Borrra un libro por id
-    @DeleteMapping
+    @DeleteMapping("/{id}")  
     public void delete(@PathVariable long id){
         LOGGER.info("Eliminar el libro con id" + id);
         libroService.delete(id);
