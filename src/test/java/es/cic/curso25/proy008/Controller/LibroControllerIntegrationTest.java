@@ -9,6 +9,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
@@ -41,6 +42,7 @@ public class LibroControllerIntegrationTest {
         mockMvc.perform(post("/libro")
                 .contentType("application/json")
                 .content(libroJson))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                                 String mensaje = result.getResponse().getContentAsString();
@@ -52,4 +54,29 @@ public class LibroControllerIntegrationTest {
                 });
 
             }
+     @Test
+    void testDelete() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAñoDePublicacion(1932);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(get("/libro/1"))
+                .andExpect(status().isOk());
+
+        mockMvc.perform(delete("/libro/1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+
+    }
 }
