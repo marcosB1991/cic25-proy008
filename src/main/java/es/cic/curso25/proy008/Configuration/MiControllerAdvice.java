@@ -18,6 +18,7 @@ public class MiControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND) // Devuelve 404
     public String handleBibliotecaNotFound(BibliotecaNotFoundException ex) {
         LOGGER.warn("{}", ex.getMessage());
+        ex.printStackTrace();
         return ex.getMessage();
     }
 
@@ -25,6 +26,7 @@ public class MiControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Devuelve 400
     public String handleIdManualNoPermitido(IdManualNoPermitidoException ex) {
         LOGGER.error("Intento de creación con ID manual: {}", ex.getMessage());
+        ex.printStackTrace();
         return ex.getMessage();
     }
 
@@ -33,6 +35,7 @@ public class MiControllerAdvice {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // Devuelve 500
     public String handleGeneralException(Exception ex) {
         LOGGER.error("Error inesperado: {}", ex.getMessage(), ex);
+        ex.printStackTrace();
         return "Ha ocurrido un error interno en el servidor.";
     }
 }
