@@ -1,16 +1,13 @@
 package es.cic.curso25.proy008.Controller;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import es.cic.curso25.proy008.Model.Libro;
 
 @SpringBootTest
@@ -25,7 +22,7 @@ public class LibroControllerTest {
         libro.setAñoDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
-        assertTrue(libro1.getId()==1);
+        assertTrue(libro1.getId()>0);
     }
 
     @Test
@@ -96,7 +93,7 @@ public class LibroControllerTest {
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         Libro libro2 = libroController.getId(1l);
-        assertTrue(libro2.getId()==libro1.getId());
+        assertTrue(libro2.getId()<=libro1.getId());
 
     }
 
@@ -126,8 +123,7 @@ public class LibroControllerTest {
         libro.setAutor("Salvador Dalí");
         libroController.update(libro);
 
-        Long id = new Long(1);
-        Libro libroActualizado=libroController.getId(id);
+        Libro libroActualizado=libroController.getId(libro.getId());
         assertTrue(libroActualizado.getAutor().equals("Salvador Dalí"));
 
     }

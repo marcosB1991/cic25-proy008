@@ -23,6 +23,9 @@ public class LibroService {
     public Libro create(Libro libro){
 
         LOGGER.info("Creo el libro" + libro);
+        if (libro.equals(null)){
+            throw new LibroNoCreadoException(libro);
+        }
         return libroRepository.save(libro);
     }
 
@@ -69,6 +72,11 @@ public class LibroService {
     //Borra un libro por id
     public void delete(long id){
         LOGGER.info("Eliminando el libro con id"+ id);
+
+        if (libroRepository.findById(id)==null){
+            throw new LibroNoEliminadoException(id);
+        }
+
         libroRepository.deleteById(id);
     }
 

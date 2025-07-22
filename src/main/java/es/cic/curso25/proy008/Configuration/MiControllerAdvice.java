@@ -1,17 +1,23 @@
 package es.cic.curso25.proy008.Configuration;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import es.cic.curso25.proy008.Controller.LibroController;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
+import es.cic.curso25.proy008.Service.LibroNoCreadoException;
+import es.cic.curso25.proy008.Service.LibroNoEliminadoException;
 
 
 
 @RestControllerAdvice
 public class MiControllerAdvice {
+     private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
      @ExceptionHandler(BibliotecaNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) // Devuelve 404
@@ -22,6 +28,22 @@ public class MiControllerAdvice {
     @ExceptionHandler(IdManualNoPermitidoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // Devuelve 400
     public String handleIdManualNoPermitido(IdManualNoPermitidoException ex) {
+        return ex.getMessage();
+    }
+
+    @ExceptionHandler(LibroNoEliminadoException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleLibroNoEliminado(LibroNoEliminadoException ex){
+        LOGGER.error("El libro no se ha podido eliminar y se lanza la excepción", ex);
+        ex.printStackTrace();
+        return ex.getMessage();
+    }
+    @ExceptionHandler(LibroNoCreadoException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleLibroNoCreado(LibroNoCreadoException ex){
+
+        LOGGER.error("El libro no se ha podido crear y se lanza la excepción", ex);
+        ex.printStackTrace();
         return ex.getMessage();
     }
 }
