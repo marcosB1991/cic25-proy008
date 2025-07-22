@@ -1,4 +1,4 @@
-package es.cic.curso25.proy008.Service;
+package es.cic.curso25.proy008.Controller;
 
 import es.cic.curso25.proy008.Model.Libro;
 

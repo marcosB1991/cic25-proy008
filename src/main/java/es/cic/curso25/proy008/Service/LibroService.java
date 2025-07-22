@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
+import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
 
@@ -63,19 +65,15 @@ public class LibroService {
 
 
     //Actualiza un libro
-    public void update(Libro libro){
+    public Libro update(Libro libro){
         LOGGER.info("Actualización"+ libro);
-        libroRepository.save(libro);
+        return libroRepository.save(libro);
     }
 
     
     //Borra un libro por id
     public void delete(long id){
         LOGGER.info("Eliminando el libro con id"+ id);
-
-        if (libroRepository.findById(id)==null){
-            throw new LibroNoEliminadoException(id);
-        }
 
         libroRepository.deleteById(id);
     }
