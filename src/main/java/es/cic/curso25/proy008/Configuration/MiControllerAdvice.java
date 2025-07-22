@@ -13,7 +13,7 @@ import es.cic.curso25.proy008.Service.LibroNoEliminadoException;
 
 @RestControllerAdvice
 public class MiControllerAdvice {
-     private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
+     //private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MiControllerAdvice.class);
 
@@ -46,7 +46,7 @@ public class MiControllerAdvice {
         LOGGER.error("El libro no se ha podido crear y se lanza la excepción", ex);
         ex.printStackTrace();
         return ex.getMessage();
-
+    }
     // Manejador genérico para cualquier excepción no controlada
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // Devuelve 500
