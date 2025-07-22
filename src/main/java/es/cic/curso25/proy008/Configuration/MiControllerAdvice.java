@@ -6,10 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
+import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
-import es.cic.curso25.proy008.Service.LibroNoCreadoException;
-import es.cic.curso25.proy008.Service.LibroNoEliminadoException;
 
 @RestControllerAdvice
 public class MiControllerAdvice {
@@ -32,10 +33,10 @@ public class MiControllerAdvice {
         ex.printStackTrace();
         return ex.getMessage();
     }
-    @ExceptionHandler(LibroNoEliminadoException.class)
+    @ExceptionHandler(LibroNoActualizadoException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public String handleLibroNoEliminado(LibroNoEliminadoException ex){
-        LOGGER.error("El libro no se ha podido eliminar y se lanza la excepción", ex);
+    public String handleLibroNoActualizado(LibroNoActualizadoException ex){
+        LOGGER.error("El libro no se ha podido actualizar y se lanza la excepción", ex);
         ex.printStackTrace();
         return ex.getMessage();
     }

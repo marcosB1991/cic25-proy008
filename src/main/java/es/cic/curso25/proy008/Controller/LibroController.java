@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import es.cic.curso25.proy008.Service.LibroService;
 import es.cic.curso25.proy008.Model.Libro;
 
@@ -32,11 +33,10 @@ public class LibroController {
     @PostMapping
     public Libro create (@RequestBody(required = true) Libro libro){
          LOGGER.info("Crear un libro"+ libro);
-
-        //if(libro.getId()!= null){
-            //throw new ModificacionSecurityException("Necesito mensaje");
-
-        //}
+         
+        if (libro.equals(null)){
+            throw new LibroNoCreadoException(libro);
+        }
         return libroService.create(libro);
 
     }
@@ -76,6 +76,10 @@ public class LibroController {
     @PutMapping("/{id}")
     public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
+         if (libro.getId() == null){
+            throw new LibroNoActualizadoException("No se ha podido actualizar el libro");
+        }
+        
         return libroService.update(libro);
     }
 
@@ -85,7 +89,5 @@ public class LibroController {
         LOGGER.info("Eliminar el libro con id" + id);
         libroService.delete(id);
     }
-
-
 
 }
