@@ -77,6 +77,7 @@ public class LibroController {
     public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
          if (libro.getId() == null){
+            
             throw new LibroNoActualizadoException("No se ha podido actualizar el libro");
         }
         
