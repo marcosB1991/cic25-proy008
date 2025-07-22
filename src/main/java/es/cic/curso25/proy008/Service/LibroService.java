@@ -63,9 +63,9 @@ public class LibroService {
 
 
     //Actualiza un libro
-    public void update(Libro libro){
+    public Libro update(Libro libro){
         LOGGER.info("Actualización"+ libro);
-        libroRepository.save(libro);
+        return libroRepository.save(libro);
     }
 
     

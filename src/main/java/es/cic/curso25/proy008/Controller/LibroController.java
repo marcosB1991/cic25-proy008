@@ -30,7 +30,7 @@ public class LibroController {
 
     //crear un libro (objeto)
     @PostMapping
-    public Libro create (@RequestBody Libro libro){
+    public Libro create (@RequestBody(required = true) Libro libro){
          LOGGER.info("Crear un libro"+ libro);
 
         //if(libro.getId()!= null){
@@ -74,9 +74,9 @@ public class LibroController {
 
     //Actualiza un registro de libro
     @PutMapping("/{id}")
-    public void update (@RequestBody Libro libro){
+    public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
-        libroService.update(libro);
+        return libroService.update(libro);
     }
 
     //Borrra un libro por id
