@@ -1,7 +1,8 @@
 package es.cic.curso25.proy008.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,47 +10,41 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 
 @Entity
-public class Libro {
+public class Editorial {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombreLibro;
-    private String autor;
-    private int añoDePublicacion;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "libro")
+    private String nombreEditorial;
+    private int numeroEdiciones;
+
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Libro libro;
-
 
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+     public void setId(Long id) {
         this.id = id;
     }
-    public String getNombreLibro() {
-        return nombreLibro;
+    public String getNombreEditorial() {
+        return nombreEditorial;
     }
-    public void setNombreLibro(String nombreLibro) {
-        this.nombreLibro = nombreLibro;
+    public void setNombreEditorial(String nombreEditorial) {
+        this.nombreEditorial = nombreEditorial;
     }
-    public String getAutor() {
-        return autor;
+    public int getNumeroEdiciones() {
+        return numeroEdiciones;
     }
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setNumeroEdiciones(int numeroEdiciones) {
+        this.numeroEdiciones = numeroEdiciones;
     }
-    public int getAñoDePublicacion() {
-        return añoDePublicacion;
-    }
-    public void setAñoDePublicacion(int añoDePublicacion) {
-        this.añoDePublicacion = añoDePublicacion;
-    }
-    @Override
+     @Override
     public String toString() {
-        return "Libro [id=" + id + ", nombreLibro=" + nombreLibro + "]";
+        return "Editorial [id=" + id + ", nombreEditorial=" + nombreEditorial + ", numeroEdiciones=" + numeroEdiciones
+                + "]";
     }
+    
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,12 +60,14 @@ public class Libro {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Libro other = (Libro) obj;
+        Editorial other = (Editorial) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
         } else if (!id.equals(other.id))
             return false;
         return true;
-    }   
+    }
+    
+
 }

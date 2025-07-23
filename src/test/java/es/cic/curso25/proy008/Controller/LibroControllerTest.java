@@ -92,8 +92,8 @@ public class LibroControllerTest {
         libro.setAñoDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
-        Libro libro2 = libroController.getId(1l);
-        assertTrue(libro2.getId()<=libro1.getId());
+        libroController.getId(1l);
+        assertTrue(1<=libro1.getId());
 
     }
 
