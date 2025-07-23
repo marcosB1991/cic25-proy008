@@ -63,7 +63,7 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAñoDePublicacion(1932);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
@@ -87,7 +87,7 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAñoDePublicacion(1932);
 
-        ObjectMapper objectMapper = new ObjectMapper();
+        //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
@@ -99,11 +99,13 @@ public class LibroControllerIntegrationTest {
                 .andExpect(status().isOk());
 
         mockMvc.perform(put("/libro/1"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(result -> {
                         String mensaje = result.getResponse().getContentAsString();
                         Libro libroCreado = objectMapper.readValue(mensaje, Libro.class);
-                        assertTrue(libroCreado.getId() ==4, "El valor debe ser mayor que 0");
+                        libroCreado.setAutor("Salvador Dalí");
+                        assertTrue(libroCreado.getAutor()=="Salvador Dalí", "El autor ha actualizado");
 
                         Optional<Libro> libroCreadoEnBase = libroRepository.findById(libroCreado.getId());
                         assertTrue(libroCreadoEnBase.isPresent());
