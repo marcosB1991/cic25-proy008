@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
 import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
@@ -13,6 +14,7 @@ import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
 
 @Service
+@Transactional
 public class LibroService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(LibroService.class);
