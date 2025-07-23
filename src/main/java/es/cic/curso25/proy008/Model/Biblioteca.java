@@ -1,40 +1,66 @@
 package es.cic.curso25.proy008.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Biblioteca {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
-     private Long id;
+    private Long id;
     private String nombre;
     private String direccion;
+
+    // Relación con Ciudad
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ciudad_id") // FK en la tabla Biblioteca
+    private Ciudad ciudad;
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
     public String getDireccion() {
         return direccion;
     }
+
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
+
+      public Ciudad getCiudad() {
+        return ciudad;
+    }
+    public void setCiudad(Ciudad ciudad) {
+        this.ciudad = ciudad;
+    }
+
+
     @Override
     public String toString() {
         return "Biblioteca [id=" + id + ", nombre=" + nombre + ", direccion=" + direccion + "]";
     }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -42,6 +68,7 @@ public class Biblioteca {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -58,6 +85,5 @@ public class Biblioteca {
             return false;
         return true;
     }
-
 
 }
