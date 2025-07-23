@@ -25,6 +25,8 @@ import es.cic.curso25.proy008.Repository.LibroRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -139,6 +141,7 @@ public class LibroControllerIntegrationTest {
         mockMvc.perform(post("/libro")
                                 .contentType("application/json")
                                 .content(libroJson));
+
                                 
         
         
@@ -152,15 +155,18 @@ public class LibroControllerIntegrationTest {
         String libro1Json = objectMapper.writeValueAsString(libro1);
 
         mockMvc.perform(post("/libro")
-                                .contentType("application/json")
-                                .content(libro1Json));
+                        .contentType("application/json")
+                        .content(libro1Json));
+
 
         mockMvc.perform(get("/libro"))
                 .andExpect(status().isOk())
                 .andExpect(result ->{
                         String response = result.getResponse().getContentAsString();
-                        List<Libro> libros = objectMapper.readValue(response,new  TypeReference<List<Libro>>() {});
-                        assertTrue(libros.size()==2,"La lista contiene dos libros");
+                        Libro[] libros = objectMapper.readValue(response,Libro[].class);
+                        
+                        assertEquals(libros[0].getAñoDePublicacion(),1932);
+                        assertEquals(libros[1].getAutor(), "Arquimedes");
                 });
                                 
     }
