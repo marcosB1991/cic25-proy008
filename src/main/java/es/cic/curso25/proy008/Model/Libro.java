@@ -17,9 +17,9 @@ public class Libro {
     private String autor;
     private int añoDePublicacion;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "libro")
-    private Libro libro;
+    //@JsonIgnore
+    //@OneToOne(mappedBy = "libro")
+    //private Libro libro;
 
 
     public Long getId() {
