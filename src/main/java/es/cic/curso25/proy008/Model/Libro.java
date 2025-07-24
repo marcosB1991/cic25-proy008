@@ -2,10 +2,12 @@ package es.cic.curso25.proy008.Model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -17,11 +19,17 @@ public class Libro {
     private String autor;
     private int añoDePublicacion;
 
-    //@JsonIgnore
-    //@OneToOne(mappedBy = "libro")
-    //private Libro libro;
+   
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "libro") 
+    private Editorial editorial;
 
-
+    public Editorial getEditorial() {
+        return editorial;
+    }
+    public void setEditorial(Editorial editorial) {
+        this.editorial = editorial;
+    }
     public Long getId() {
         return id;
     }
