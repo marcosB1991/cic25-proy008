@@ -17,7 +17,7 @@ public class Editorial {
     private int numeroEdiciones;
 
     
-    @OneToOne(cascade =CascadeType.PERSIST)
+    @OneToOne(mappedBy = "editorial")
     private Libro libro;
      
 

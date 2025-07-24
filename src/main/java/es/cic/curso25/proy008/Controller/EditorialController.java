@@ -37,9 +37,9 @@ public class EditorialController {
     public Editorial create (@RequestBody(required = true) Editorial editorial){
          LOGGER.info("Crear una editorial"+ editorial);
          
-        //if (editorial.equals(null)){
-        //    throw new EditorialNoCreadaException(editorial);
-       // }
+        if (editorial.equals(null)){
+           throw new EditorialNoCreadaException(editorial);
+        }
         return editorialService.create(editorial);
 
     }
@@ -73,10 +73,10 @@ public class EditorialController {
     @PutMapping("/{id}")
     public Editorial update (@RequestBody Editorial editorial){
         LOGGER.info("Actualizar la editorial"+editorial);
-         //if (editorial.getId() == null){
+         if (editorial.getId() == null){
             
-          //  throw new EditorialNoActualizadoException("No se ha podido actualizar la editorial");
-        //}
+            throw new EditorialNoActializadaException("No se ha podido actualizar la editorial");
+        }
         
         return editorialService.update(editorial);
     }
