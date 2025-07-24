@@ -1,0 +1,73 @@
+package es.cic.curso25.proy008.uc;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import es.cic.curso25.proy008.Model.Editorial;
+import es.cic.curso25.proy008.Model.Libro;
+import es.cic.curso25.proy008.Repository.LibroRepository;
+
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
+public class EditorialDelLibro {
+
+    @Autowired
+    private MockMvc mockMvc;
+    @Autowired 
+    private ObjectMapper objectMapper;
+    @Autowired
+    private LibroRepository libroRepository;
+
+    @Test
+    void testEncontrarLibroEnBiblioteca() throws Exception{
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+
+        Editorial editorial = new Editorial();
+        editorial.setNombreEditorial("Alianza Editorial");
+        editorial.setNumeroEdiciones(7);
+
+        libro.setEditorial(editorial);
+        editorial.setLibro(libro);
+        
+
+        // ObjectMapper objectMapper = new ObjectMapper();
+        String editorialACrearJson = objectMapper.writeValueAsString(editorial);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(editorialACrearJson))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(libroCreado -> {
+                                //String mensaje = libroCreado.getResponse().getContentAsString();
+                                assertNotNull(objectMapper.readValue(
+                                libroCreado.getResponse().getContentAsString(), Editorial.class), 
+                                "La editorial compro el libro");
+            });
+                               
+                
+
+
+    }
+    
+
+}

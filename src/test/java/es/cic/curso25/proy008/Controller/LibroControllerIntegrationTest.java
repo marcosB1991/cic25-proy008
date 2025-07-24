@@ -46,7 +46,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
         
 
         // ObjectMapper objectMapper = new ObjectMapper();
@@ -73,7 +73,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -97,7 +97,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -133,7 +133,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -148,7 +148,7 @@ public class LibroControllerIntegrationTest {
         Libro libro1 = new Libro();
         libro1.setNombreLibro("El contador de arena");
         libro1.setAutor("Arquimedes");
-        libro1.setAñoDePublicacion((-240));
+        libro1.setAnioDePublicacion((-240));
 
 
         //ObjectMapper objectMapper = new ObjectMapper();
@@ -165,7 +165,7 @@ public class LibroControllerIntegrationTest {
                         String response = result.getResponse().getContentAsString();
                         Libro[] libros = objectMapper.readValue(response,Libro[].class);
                         
-                        assertEquals(libros[0].getAñoDePublicacion(),1932);
+                        assertEquals(libros[0].getAnioDePublicacion(),1932);
                         assertEquals(libros[1].getAutor(), "Arquimedes");
                 });
                                 
@@ -175,7 +175,7 @@ public class LibroControllerIntegrationTest {
     Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
         //convertimos el objeto de tipo libro en json con ObjectMapper
         String libroJson = objectMapper.writeValueAsString(libro);
         //simulamos la llamada HTTP y recogemos el id generado

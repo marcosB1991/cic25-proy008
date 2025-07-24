@@ -1,6 +1,7 @@
 package es.cic.curso25.proy008.Controller;
 
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class LibroControllerTest {
     void testCreate() {
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         assertTrue(libro1.getId()>0);
@@ -30,7 +31,7 @@ public class LibroControllerTest {
 
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         Long id = libro1.getId();
@@ -45,13 +46,13 @@ public class LibroControllerTest {
         List<Libro> lista = new ArrayList<>();
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         lista.add(libro1);
         Libro libro2 = new Libro();
         libro2.setAutor("Federico García Lorca");
-        libro2.setAñoDePublicacion(1928);
+        libro2.setAnioDePublicacion(1928);
         libro2.setNombreLibro("Romancero Gitano");
         Libro libro3 = libroController.create(libro);
         lista.add(libro3);
@@ -63,25 +64,25 @@ public class LibroControllerTest {
     void testGetAutor() {
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
-        Libro libro1 = libroController.create(libro);
+        libroController.create(libro);
         List<Libro> lista = libroController.getAutor("Federico García Lorca");
         assertTrue(lista.size()>0,"La lista tiene elementos");
-        assertTrue(lista.get(0).getAutor()==libro1.getAutor());
+        assertEquals(lista.get(0).getAutor(), "Federico García Lorca");
 
     }
 
     @Test
-    void testGetAñoDePublicacion() {
+    void testGetAnioDePublicacion() {
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
-        List<Libro> lista = libroController.getAñoDePublicacion(1928);
+        List<Libro> lista = libroController.getAnioDePublicacion(1928);
         assertTrue(lista.size()>0,"La lista tiene elementos");
-        assertTrue(lista.get(0).getAñoDePublicacion()==libro1.getAñoDePublicacion());
+        assertTrue(lista.get(0).getAnioDePublicacion()==libro1.getAnioDePublicacion());
 
     }
 
@@ -89,7 +90,7 @@ public class LibroControllerTest {
     void testGetId() {
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         libroController.getId(1l);
@@ -101,7 +102,7 @@ public class LibroControllerTest {
     void testGetNombreLibro() {
          Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
         Libro libro1 = libroController.create(libro);
         List<Libro> lista = libroController.getNombreLibro("Romancero Gitano");
@@ -115,7 +116,7 @@ public class LibroControllerTest {
        
         Libro libro = new Libro();
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1928);
+        libro.setAnioDePublicacion(1928);
         libro.setNombreLibro("Romancero Gitano");
        
         libroController.create(libro);

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
+import es.cic.curso25.proy008.Controller.EditorialNoActializadaException;
+import es.cic.curso25.proy008.Controller.EditorialNoCreadaException;
 import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
@@ -55,6 +57,20 @@ public class MiControllerAdvice {
         LOGGER.error("Error inesperado: {}", ex.getMessage(), ex);
         ex.printStackTrace();
         return "Ha ocurrido un error interno en el servidor.";
+    }
+    @ExceptionHandler(EditorialNoActializadaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleEditorialNoActualizada(EditorialNoActializadaException ex){
+        LOGGER.error("No se ha podido actualizar la informacion de la editorial y se lanza la excepción", ex);
+        ex.printStackTrace();
+        return ex.getMessage();
+    }
+    @ExceptionHandler(EditorialNoCreadaException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleEditorialNoCreada(EditorialNoCreadaException ex){
+        LOGGER.error("No se ha podido crear la editorial y se lanza la excepción", ex);
+        ex.printStackTrace();
+        return ex.getMessage();
     }
 }
 

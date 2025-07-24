@@ -67,9 +67,9 @@ public class LibroController {
     }
     //Obtiene los libros creados en el año ...
     @GetMapping("/añoDePublicacion/{añoDePublicacion}")
-    public List<Libro> getAñoDePublicacion(@PathVariable int añoDePublicacion){
-        LOGGER.info("Obtener los libros publicados en el año"+añoDePublicacion);
-        return libroService.getAñoDePublicacion(añoDePublicacion);
+    public List<Libro> getAnioDePublicacion(@PathVariable int anioDePublicacion){
+        LOGGER.info("Obtener los libros publicados en el año"+anioDePublicacion);
+        return libroService.getAnioDePublicacion(anioDePublicacion);
     }
 
     //Actualiza un registro de libro

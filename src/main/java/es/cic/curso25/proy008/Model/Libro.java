@@ -17,7 +17,7 @@ public class Libro {
     private Long id;
     private String nombreLibro;
     private String autor;
-    private int añoDePublicacion;
+    private int anioDePublicacion;
 
    
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -48,11 +48,11 @@ public class Libro {
     public void setAutor(String autor) {
         this.autor = autor;
     }
-    public int getAñoDePublicacion() {
-        return añoDePublicacion;
+    public int getAnioDePublicacion() {
+        return anioDePublicacion;
     }
-    public void setAñoDePublicacion(int añoDePublicacion) {
-        this.añoDePublicacion = añoDePublicacion;
+    public void setAnioDePublicacion(int añoDePublicacion) {
+        this.anioDePublicacion = añoDePublicacion;
     }
     @Override
     public String toString() {

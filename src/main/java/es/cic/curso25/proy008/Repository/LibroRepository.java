@@ -12,7 +12,7 @@ public interface LibroRepository extends JpaRepository<Libro,Long>{
     Optional<Libro> findById(Long id);
     List<Libro> findByNombreLibro(String nombreLibro);
     List<Libro> findByAutor(String autor);
-    List<Libro> findByAñoDePublicacion(int añoDePublicacion);
+    List<Libro> findByAnioDePublicacion(int añoDePublicacion);
 }
 
 
