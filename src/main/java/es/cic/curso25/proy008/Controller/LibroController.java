@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.cic.curso25.proy008.Service.EditorialService;
 import es.cic.curso25.proy008.Service.LibroService;
+import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 
 
@@ -26,6 +28,8 @@ public class LibroController {
 
     @Autowired
     private LibroService libroService;
+    @Autowired
+    private EditorialService editorialService;
 
 
 
@@ -89,6 +93,14 @@ public class LibroController {
     public void delete(@PathVariable long id){
         LOGGER.info("Eliminar el libro con id" + id);
         libroService.delete(id);
+    }
+
+    @PostMapping("/amistad")
+    public Editorial create(@RequestBody Editorial editorial){
+
+        Editorial editorialCreada = editorialService.create(editorial);
+
+        return editorialCreada;
     }
 
 }

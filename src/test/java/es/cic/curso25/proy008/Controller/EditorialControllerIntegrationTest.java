@@ -1,5 +1,4 @@
 package es.cic.curso25.proy008.Controller;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -8,9 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -18,13 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.EditorialRepository;
-import es.cic.curso25.proy008.Repository.LibroRepository;
+
 
 
 @SpringBootTest
@@ -61,6 +56,21 @@ public class EditorialControllerIntegrationTest {
                 });
                                      
 
+    }
+    @Test
+    void testCreateException() throws Exception {
+
+        Editorial editorial = new Editorial();
+        editorial.setId(1L);
+        editorial.setNombreEditorial("Alianza");
+        editorial.setNumeroEdiciones(7);
+
+        String editorialJson = objectMapper.writeValueAsString(editorial);
+
+        mockMvc.perform(post("/editorial")
+                .contentType("application/json")
+                .content(editorialJson))
+                .andExpect(status().isBadRequest());
     }
     @Test
     void testDelete() throws Exception {
@@ -119,6 +129,22 @@ public class EditorialControllerIntegrationTest {
                         assertTrue(comprobacionEnBase.isPresent());
                 });
     }
+    @Test
+    void testUpdateException() throws Exception {
+
+        Editorial editorial = new Editorial();
+        editorial.setNombreEditorial("Alianza");
+        editorial.setNumeroEdiciones(7);
+
+        String editorialJson = objectMapper.writeValueAsString(editorial);
+
+        mockMvc.perform(put("/editorial")
+                .contentType("application/json")
+                .content(editorialJson))
+                .andExpect(status().isNotFound());
+
+    }
+    
     @Test
     void testGet() throws Exception{
         Editorial editorial = new Editorial();

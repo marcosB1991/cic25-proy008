@@ -37,7 +37,7 @@ public class EditorialController {
     public Editorial create (@RequestBody(required = true) Editorial editorial){
          LOGGER.info("Crear una editorial"+ editorial);
          
-        if (editorial.equals(null)){
+        if (editorial.getId()!=null){
            throw new EditorialNoCreadaException(editorial);
         }
         return editorialService.create(editorial);

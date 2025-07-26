@@ -1,6 +1,5 @@
 package es.cic.curso25.proy008.Model;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

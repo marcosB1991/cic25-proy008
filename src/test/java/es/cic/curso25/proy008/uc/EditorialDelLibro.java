@@ -50,24 +50,19 @@ public class EditorialDelLibro {
         
 
         // ObjectMapper objectMapper = new ObjectMapper();
-        String editorialACrearJson = objectMapper.writeValueAsString(editorial);
+        String libroACrearJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
                 .contentType("application/json")
-                .content(editorialACrearJson))
+                .content(libroACrearJson))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(libroCreado -> {
                                 //String mensaje = libroCreado.getResponse().getContentAsString();
                                 assertNotNull(objectMapper.readValue(
-                                libroCreado.getResponse().getContentAsString(), Editorial.class), 
+                                libroCreado.getResponse().getContentAsString(), Libro.class), 
                                 "La editorial compro el libro");
             });
-                               
-                
-
-
     }
-    
 
 }

@@ -14,20 +14,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
+import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
@@ -66,6 +59,21 @@ public class LibroControllerIntegrationTest {
                                 assertTrue(libroCreadoEnBase.isPresent());
                 });
 
+    }
+    @Test
+    void testCreateException() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+        
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isBadRequest());
     }
     @Test
     void testDelete() throws Exception {
@@ -172,7 +180,7 @@ public class LibroControllerIntegrationTest {
     }
     @Test
     void testGetId() throws Exception{
-    Libro libro = new Libro();
+        Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
         libro.setAnioDePublicacion(1932);
@@ -192,5 +200,21 @@ public class LibroControllerIntegrationTest {
             .andExpect( result ->{
                 assertEquals(objectMapper.readValue(result.getResponse().getContentAsString(), Libro.class).getId(), idGenerado);
             });
+    }
+    @Test
+    void testUpdateException() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+        
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(put("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isNotFound());
+
     }
 }
