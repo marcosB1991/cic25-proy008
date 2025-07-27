@@ -21,7 +21,7 @@ public class Editorial {
     private int numeroEdiciones;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "libro_id")
+    @OneToOne(mappedBy = "editorial")
     private Libro libro;
      
 
