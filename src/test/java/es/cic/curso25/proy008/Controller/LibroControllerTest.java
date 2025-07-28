@@ -54,7 +54,7 @@ public class LibroControllerTest {
         libro2.setAutor("Federico García Lorca");
         libro2.setAnioDePublicacion(1928);
         libro2.setNombreLibro("Romancero Gitano");
-        Libro libro3 = libroController.create(libro);
+        Libro libro3 = libroController.create(libro2);
         lista.add(libro3);
         assertTrue(lista.size()==2);
 

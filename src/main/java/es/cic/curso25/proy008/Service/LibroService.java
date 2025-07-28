@@ -1,15 +1,11 @@
 package es.cic.curso25.proy008.Service;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
-import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
 
@@ -27,9 +23,6 @@ public class LibroService {
     public Libro create(Libro libro){
 
         LOGGER.info("Creo el libro" + libro);
-        if (libro.equals(null)){
-            throw new LibroNoCreadoException(libro);
-        }
         return libroRepository.save(libro);
     }
 
@@ -81,8 +74,4 @@ public class LibroService {
 
         libroRepository.deleteById(id);
     }
-
-
-
-
 }
