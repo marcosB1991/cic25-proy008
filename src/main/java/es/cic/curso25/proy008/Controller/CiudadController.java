@@ -25,8 +25,7 @@ public class CiudadController {
         this.bibliotecaService = bibliotecaService;
     }
 
-
-     @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public Ciudad get(@PathVariable Long id) {
         LOGGER.info("Buscando la ciudad con id {}", id);
         return ciudadService.buscarPorId(id);
@@ -56,9 +55,7 @@ public class CiudadController {
         ciudadService.eliminarCiudad(id);
     }
 
-  
     // Relación Ciudad - Biblioteca
-    
 
     /**
      * Asignar una biblioteca a una ciudad.
@@ -66,8 +63,8 @@ public class CiudadController {
      * 
      * Ejemplo JSON para POST:
      * {
-     *   "nombre": "Biblioteca Central",
-     *   "direccion": "Av. Principal 123"
+     * "nombre": "Biblioteca Central",
+     * "direccion": "Av. Principal 123"
      * }
      */
     @PostMapping("/{idCiudad}/biblioteca")
@@ -82,5 +79,13 @@ public class CiudadController {
         ciudad.setBiblioteca(biblioteca);
 
         return bibliotecaService.crearBiblioteca(biblioteca);
+    }
+
+    //Ver biblioteca asociada
+    @GetMapping("/{idCiudad}/biblioteca")
+    public Biblioteca obtenerBibliotecaDeCiudad(@PathVariable Long idCiudad) {
+        LOGGER.info("Obteniendo la biblioteca de la ciudad con id {}", idCiudad);
+        Ciudad ciudad = ciudadService.buscarPorId(idCiudad);
+        return ciudad.getBiblioteca();
     }
 }
