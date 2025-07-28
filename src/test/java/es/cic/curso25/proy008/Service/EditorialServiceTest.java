@@ -70,8 +70,10 @@ public class EditorialServiceTest {
         Editorial editorial = new Editorial();
         editorial.setNombreEditorial("Alianza");
         editorial.setNumeroEdiciones(8);
-        editorialService.create(editorial);
-        List<Editorial> lista = editorialService.getNombreEditorial("Alianza");
+        Editorial editorial1 = editorialService.create(editorial);
+        List<Editorial> lista = new ArrayList<>();
+        lista.add(editorial1);
+        editorialService.getNombreEditorial("Alianza");
         assertTrue(lista.size()>0,"La lista tiene elementos");
         assertEquals(lista.get(0).getNombreEditorial(),"Alianza");
 

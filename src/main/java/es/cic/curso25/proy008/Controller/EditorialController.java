@@ -70,7 +70,7 @@ public class EditorialController {
     }
 
     //Actualiza 
-    @PutMapping("/{id}")
+    @PutMapping
     public Editorial update (@RequestBody Editorial editorial){
         LOGGER.info("Actualizar la editorial"+editorial);
          if (editorial.getId() == null){

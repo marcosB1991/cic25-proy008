@@ -38,7 +38,7 @@ public class LibroController {
     public Libro create (@RequestBody(required = true) Libro libro){
          LOGGER.info("Crear un libro"+ libro);
          
-        if (libro.equals(null)){
+        if (libro.getId()!= null){
             throw new LibroNoCreadoException(libro);
         }
         return libroService.create(libro);
@@ -77,7 +77,7 @@ public class LibroController {
     }
 
     //Actualiza un registro de libro
-    @PutMapping("/{id}")
+    @PutMapping
     public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
          if (libro.getId() == null){

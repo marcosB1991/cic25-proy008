@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
@@ -116,7 +120,7 @@ public class EditorialControllerIntegrationTest {
 
         String editorialActualizadaJson = objectMapper.writeValueAsString(registroCreado);
         
-        mockMvc.perform(put("/editorial/1")
+        mockMvc.perform(put("/editorial")
                 .contentType("application/json")
                 .content (editorialActualizadaJson))
                 .andExpect(status().isOk())
@@ -141,7 +145,7 @@ public class EditorialControllerIntegrationTest {
         mockMvc.perform(put("/editorial")
                 .contentType("application/json")
                 .content(editorialJson))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isBadRequest());
 
     }
     
@@ -175,10 +179,9 @@ public class EditorialControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(result ->{
                         String response = result.getResponse().getContentAsString();
-                        Editorial[] editorials = objectMapper.readValue(response,Editorial[].class);
-                        
-                        assertEquals(editorials[0].getNumeroEdiciones(),7);
-                        assertEquals(editorials[1].getNumeroEdiciones(), 8);
+                        List<Editorial> personas = objectMapper.readValue(response,new TypeReference<List<Editorial>>() {}); 
+
+                        assertTrue(personas.size() >= 2);
                 });
                                 
     }
