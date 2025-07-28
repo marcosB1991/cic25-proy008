@@ -12,6 +12,7 @@ import es.cic.curso25.proy008.Controller.EditorialNoActializadaException;
 import es.cic.curso25.proy008.Controller.EditorialNoCreadaException;
 import es.cic.curso25.proy008.Controller.LibroNoActualizadoException;
 import es.cic.curso25.proy008.Service.BibliotecaNotFoundException;
+import es.cic.curso25.proy008.Service.CiudadNotFoundException;
 import es.cic.curso25.proy008.Service.IdManualNoPermitidoException;
 
 @RestControllerAdvice
@@ -50,6 +51,17 @@ public class MiControllerAdvice {
         ex.printStackTrace();
         return ex.getMessage();
     }
+
+     @ExceptionHandler(CiudadNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND) // Devuelve 404
+    public String handleCiudadNotFound(CiudadNotFoundException ex) {
+        LOGGER.warn("{}", ex.getMessage());
+        ex.printStackTrace();
+        return ex.getMessage();
+    }
+
+
+
     // Manejador genérico para cualquier excepción no controlada
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // Devuelve 500

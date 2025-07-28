@@ -19,7 +19,7 @@ public class Libro {
 
    
     @OneToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "libro") 
+    @JoinColumn(name = "editorial_id") 
     private Editorial editorial;
 
     public Editorial getEditorial() {
