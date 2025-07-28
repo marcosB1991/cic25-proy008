@@ -34,7 +34,7 @@ public class EditorialDelLibro {
     private LibroRepository libroRepository;
 
     @Test
-    void testEncontrarLibroEnBiblioteca() throws Exception{
+    void testPatrocinarElLibro() throws Exception{
 
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");

@@ -1,5 +1,7 @@
 package es.cic.curso25.proy008.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +17,7 @@ public class Editorial {
     private String nombreEditorial;
     private int numeroEdiciones;
 
-    
+    @JsonIgnore
     @OneToOne(mappedBy = "editorial")
     private Libro libro;
      
