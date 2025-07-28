@@ -16,8 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@SpringBootTest //Simula que levanta la aplicacion
+@AutoConfigureMockMvc //herramienta para simular peticiones HTTP (GET, POST, etc.)
 public class BibliotecaControllerIntegrationTest {
 
     @Autowired
