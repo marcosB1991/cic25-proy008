@@ -1,7 +1,6 @@
 package es.cic.curso25.proy008.Controller;
 
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import es.cic.curso25.proy008.Service.EditorialService;
 import es.cic.curso25.proy008.Service.LibroService;
 import es.cic.curso25.proy008.Model.Editorial;
@@ -95,7 +93,7 @@ public class LibroController {
         libroService.delete(id);
     }
 
-    @PostMapping("/amistad")
+    @PostMapping("/patrocinio")
     public Editorial create(@RequestBody Editorial editorial){
 
         Editorial editorialCreada = editorialService.create(editorial);
