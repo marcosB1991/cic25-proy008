@@ -35,6 +35,7 @@ public class LibroService {
 
 
     //lista todas los libros
+    @Transactional(readOnly = true)
     public List<Libro> get(){
 
         LOGGER.info("Obtengo todos los libros");
@@ -42,6 +43,7 @@ public class LibroService {
     }
 
     //Obtiene un libro por id
+    @Transactional(readOnly = true)
     public Libro getId(Long id){
         LOGGER.info("Obtengo el libro con el id" + id);
         return libroRepository.findById(id).orElse(null);
@@ -60,9 +62,9 @@ public class LibroService {
     }
 
     //Obtiene un listado de libros publicados en el año
-    public List<Libro> getAñoDePublicacion(int añoDePublicacion){
-        LOGGER.info("El año de publicacion del libro es"+ añoDePublicacion);
-        return libroRepository.findByAñoDePublicacion(añoDePublicacion);
+    public List<Libro> getAnioDePublicacion(int anioDePublicacion){
+        LOGGER.info("El año de publicacion del libro es"+ anioDePublicacion);
+        return libroRepository.findByAnioDePublicacion(anioDePublicacion);
     }
 
 

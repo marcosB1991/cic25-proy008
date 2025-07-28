@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.cic.curso25.proy008.Service.EditorialService;
 import es.cic.curso25.proy008.Service.LibroService;
+import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 
 
@@ -26,6 +28,8 @@ public class LibroController {
 
     @Autowired
     private LibroService libroService;
+    @Autowired
+    private EditorialService editorialService;
 
 
 
@@ -34,7 +38,7 @@ public class LibroController {
     public Libro create (@RequestBody(required = true) Libro libro){
          LOGGER.info("Crear un libro"+ libro);
          
-        if (libro.equals(null)){
+        if (libro.getId()!= null){
             throw new LibroNoCreadoException(libro);
         }
         return libroService.create(libro);
@@ -67,13 +71,13 @@ public class LibroController {
     }
     //Obtiene los libros creados en el año ...
     @GetMapping("/añoDePublicacion/{añoDePublicacion}")
-    public List<Libro> getAñoDePublicacion(@PathVariable int añoDePublicacion){
-        LOGGER.info("Obtener los libros publicados en el año"+añoDePublicacion);
-        return libroService.getAñoDePublicacion(añoDePublicacion);
+    public List<Libro> getAnioDePublicacion(@PathVariable int anioDePublicacion){
+        LOGGER.info("Obtener los libros publicados en el año"+anioDePublicacion);
+        return libroService.getAnioDePublicacion(anioDePublicacion);
     }
 
     //Actualiza un registro de libro
-    @PutMapping("/{id}")
+    @PutMapping
     public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
          if (libro.getId() == null){
@@ -89,6 +93,14 @@ public class LibroController {
     public void delete(@PathVariable long id){
         LOGGER.info("Eliminar el libro con id" + id);
         libroService.delete(id);
+    }
+
+    @PostMapping("/amistad")
+    public Editorial create(@RequestBody Editorial editorial){
+
+        Editorial editorialCreada = editorialService.create(editorial);
+
+        return editorialCreada;
     }
 
 }

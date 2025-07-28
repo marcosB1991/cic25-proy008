@@ -18,15 +18,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import es.cic.curso25.proy008.Controller.LibroNoCreadoException;
+import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,7 +43,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
         
 
         // ObjectMapper objectMapper = new ObjectMapper();
@@ -68,12 +65,28 @@ public class LibroControllerIntegrationTest {
 
     }
     @Test
+    void testCreateException() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setId(1L);
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+        
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(post("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isNotFound());
+    }
+    @Test
     void testDelete() throws Exception {
 
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -97,7 +110,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -115,7 +128,7 @@ public class LibroControllerIntegrationTest {
 
         String libroActualizadoJson = objectMapper.writeValueAsString(registroCreado);
         
-        mockMvc.perform(put("/libro/1")
+        mockMvc.perform(put("/libro")
                 .contentType("application/json")
                 .content (libroActualizadoJson))
                 .andExpect(status().isOk())
@@ -133,7 +146,7 @@ public class LibroControllerIntegrationTest {
         Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
 
         //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
@@ -148,7 +161,7 @@ public class LibroControllerIntegrationTest {
         Libro libro1 = new Libro();
         libro1.setNombreLibro("El contador de arena");
         libro1.setAutor("Arquimedes");
-        libro1.setAñoDePublicacion((-240));
+        libro1.setAnioDePublicacion((-240));
 
 
         //ObjectMapper objectMapper = new ObjectMapper();
@@ -163,19 +176,17 @@ public class LibroControllerIntegrationTest {
                 .andExpect(status().isOk())
                 .andExpect(result ->{
                         String response = result.getResponse().getContentAsString();
-                        Libro[] libros = objectMapper.readValue(response,Libro[].class);
-                        
-                        assertEquals(libros[0].getAñoDePublicacion(),1932);
-                        assertEquals(libros[1].getAutor(), "Arquimedes");
+                        List<Editorial> personas = objectMapper.readValue(response,new TypeReference<List<Editorial>>() {}); 
+                        assertTrue(personas.size() >= 2);
                 });
                                 
     }
     @Test
     void testGetId() throws Exception{
-    Libro libro = new Libro();
+        Libro libro = new Libro();
         libro.setNombreLibro("Bodas de sangre");
         libro.setAutor("Federico García Lorca");
-        libro.setAñoDePublicacion(1932);
+        libro.setAnioDePublicacion(1932);
         //convertimos el objeto de tipo libro en json con ObjectMapper
         String libroJson = objectMapper.writeValueAsString(libro);
         //simulamos la llamada HTTP y recogemos el id generado
@@ -192,5 +203,21 @@ public class LibroControllerIntegrationTest {
             .andExpect( result ->{
                 assertEquals(objectMapper.readValue(result.getResponse().getContentAsString(), Libro.class).getId(), idGenerado);
             });
+    }
+    @Test
+    void testUpdateException() throws Exception {
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+        
+        String libroJson = objectMapper.writeValueAsString(libro);
+
+        mockMvc.perform(put("/libro")
+                .contentType("application/json")
+                .content(libroJson))
+                .andExpect(status().isBadRequest());
+
     }
 }

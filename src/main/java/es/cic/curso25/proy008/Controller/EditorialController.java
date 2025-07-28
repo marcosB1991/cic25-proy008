@@ -31,14 +31,15 @@ public class EditorialController {
 
     // crear una editorial (objeto)
     @PostMapping
-    public Editorial create(@RequestBody(required = true) Editorial editorial) {
-        LOGGER.info("Crear una editorial" + editorial);
 
-        // if (editorial.equals(null)){
-        // throw new EditorialNoCreadaException(editorial);
-        // }
+    public Editorial create (@RequestBody(required = true) Editorial editorial){
+         LOGGER.info("Crear una editorial"+ editorial);
+         
+        if (editorial.getId()!=null){
+           throw new EditorialNoCreadaException(editorial);
+        }
+
         return editorialService.create(editorial);
-
     }
 
     // obtener todas las editoriales
@@ -69,15 +70,16 @@ public class EditorialController {
         return editorialService.getNumeroEdiciones(numeroEdiciones);
     }
 
-    // Actualiza
-    @PutMapping("/{id}")
-    public Editorial update(@RequestBody Editorial editorial) {
-        LOGGER.info("Actualizar la editorial" + editorial);
-        // if (editorial.getId() == null){
 
-        // throw new EditorialNoActualizadoException("No se ha podido actualizar la
-        // editorial");
-        // }
+    //Actualiza 
+    @PutMapping
+    public Editorial update (@RequestBody Editorial editorial){
+        LOGGER.info("Actualizar la editorial"+editorial);
+         if (editorial.getId() == null){
+            
+            throw new EditorialNoActializadaException("No se ha podido actualizar la editorial");
+        }
+        
 
         return editorialService.update(editorial);
     }
