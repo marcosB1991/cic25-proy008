@@ -7,23 +7,19 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.transaction.annotation.Transactional;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import es.cic.curso25.proy008.Model.Editorial;
 import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.LibroRepository;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -45,8 +41,6 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAnioDePublicacion(1932);
         
-
-        // ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
@@ -88,7 +82,6 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAnioDePublicacion(1932);
 
-        //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
@@ -112,7 +105,6 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAnioDePublicacion(1932);
 
-        //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         MvcResult result = mockMvc.perform(post("/libro")
@@ -148,7 +140,6 @@ public class LibroControllerIntegrationTest {
         libro.setAutor("Federico García Lorca");
         libro.setAnioDePublicacion(1932);
 
-        //ObjectMapper objectMapper = new ObjectMapper();
         String libroJson = objectMapper.writeValueAsString(libro);
 
         mockMvc.perform(post("/libro")
@@ -163,8 +154,6 @@ public class LibroControllerIntegrationTest {
         libro1.setAutor("Arquimedes");
         libro1.setAnioDePublicacion((-240));
 
-
-        //ObjectMapper objectMapper = new ObjectMapper();
         String libro1Json = objectMapper.writeValueAsString(libro1);
 
         mockMvc.perform(post("/libro")
