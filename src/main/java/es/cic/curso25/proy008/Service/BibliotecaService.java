@@ -1,7 +1,6 @@
 package es.cic.curso25.proy008.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +29,7 @@ public class BibliotecaService {
 
     @Transactional(readOnly = true)
     public List<Biblioteca> listaBibliotecas() {
+        LOGGER.info("Listando todas las bibliotecas");
         return bibliotecaRepository.findAll();
     }
 
@@ -52,6 +52,7 @@ public class BibliotecaService {
     // Eliminar por Id
 
     public void eliminarBiblioteca(Long id) {
+        LOGGER.info("Eliminando biblioteca con id {}", id);
         if (!bibliotecaRepository.existsById(id)) {
             throw new BibliotecaNotFoundException(id);
         }

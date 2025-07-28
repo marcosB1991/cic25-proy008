@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import es.cic.curso25.proy008.Model.Editorial;
+import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Service.EditorialService;
+import es.cic.curso25.proy008.Service.LibroService;
 
 
 @RestController

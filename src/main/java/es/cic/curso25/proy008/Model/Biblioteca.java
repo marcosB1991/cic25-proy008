@@ -1,6 +1,5 @@
 package es.cic.curso25.proy008.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

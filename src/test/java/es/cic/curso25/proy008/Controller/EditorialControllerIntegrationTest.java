@@ -1,6 +1,7 @@
 package es.cic.curso25.proy008.Controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import es.cic.curso25.proy008.Model.Editorial;
+import es.cic.curso25.proy008.Model.Libro;
 import es.cic.curso25.proy008.Repository.EditorialRepository;
 
 
@@ -197,13 +199,74 @@ public class EditorialControllerIntegrationTest {
                                 .andExpect(status().isOk())
                                 .andReturn();
         Long idGenerado = objectMapper.readValue(mvcResult.getResponse().getContentAsString(), Editorial.class).getId();
-        //utilizamos ese id para probar la búsqueda
-        //por si acaso (aunque es redundante) comprobamos si el id del objeto que nos devuelve es el mismo que el que hemos usado en la búsqueda
+
         mockMvc.perform(get("/editorial/"+idGenerado))
             .andExpect(status().isOk())
             .andExpect( result ->{
                 assertEquals(objectMapper.readValue(result.getResponse().getContentAsString(), Editorial.class).getId(), idGenerado);
             });
+    }
+    @Test
+    void testAsignarLibroAEditorial() throws Exception {
+        Editorial editorial = new Editorial();
+        editorial.setNombreEditorial("Alianza");
+        editorial.setNumeroEdiciones(7);
+
+        MvcResult editorialResult = mockMvc.perform(post("/editorial")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(editorial)))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        Long idEditorial = objectMapper.readValue(editorialResult.getResponse().getContentAsString(), Editorial.class).getId();
+
+        Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+
+        MvcResult libroResult = mockMvc.perform(post("/editorial/" + idEditorial + "/libro")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(libro)))
+                        .andExpect(status().isOk()) 
+                        .andReturn();
+
+        Libro libroCreado = objectMapper.readValue(libroResult.getResponse().getContentAsString(), Libro.class);
+        assertEquals("Bodas de sangre", libroCreado.getNombreLibro());
+        assertNotNull(libroCreado.getId());
+    }
+
+    @Test
+    void testObtenerLibroDeEditorial() throws Exception {
+        Editorial editorial = new Editorial();
+        editorial.setNombreEditorial("Alianza");
+        editorial.setNumeroEdiciones(7);
+
+        MvcResult editorialResult = mockMvc.perform(post("/editorial")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(editorial)))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        Long idEditorial = objectMapper.readValue(editorialResult.getResponse().getContentAsString(), Editorial.class).getId();
+
+
+
+         Libro libro = new Libro();
+        libro.setNombreLibro("Bodas de sangre");
+        libro.setAutor("Federico García Lorca");
+        libro.setAnioDePublicacion(1932);
+
+        mockMvc.perform(post("/editorial/" + idEditorial + "/libro")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(libro)))
+                        .andExpect(status().isOk());
+
+        // Obtener biblioteca de ciudad
+        mockMvc.perform(get("/editorial/" + idEditorial + "/libro"))
+                .andExpect(status().isOk());
+
+                
     }
 }
 
