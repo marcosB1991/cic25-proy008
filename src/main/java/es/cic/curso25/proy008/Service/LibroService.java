@@ -43,18 +43,21 @@ public class LibroService {
     }
 
     //Obtiene un listado de libros por nombre del autor
+    @Transactional(readOnly = true)
     public List<Libro> getAutor(String autor){
         LOGGER.info("Obtengo el libro por el autor" + autor);
         return libroRepository.findByAutor(autor);
     }
 
     //Obtiene un listado de libros por el nombre del libro
+    @Transactional(readOnly = true)
     public List<Libro> getNombreLibro(String nombreLibro){
         LOGGER.info("Obtengo el nombre del libro"+nombreLibro);
         return libroRepository.findByNombreLibro(nombreLibro);
     }
 
     //Obtiene un listado de libros publicados en el año
+    @Transactional(readOnly = true)
     public List<Libro> getAnioDePublicacion(int anioDePublicacion){
         LOGGER.info("El año de publicacion del libro es"+ anioDePublicacion);
         return libroRepository.findByAnioDePublicacion(anioDePublicacion);

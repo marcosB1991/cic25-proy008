@@ -35,18 +35,21 @@ public class EditorialService {
     }
 
     //Obtiene la editorial por id
+    @Transactional(readOnly = true)
     public Editorial getId(Long id){
         LOGGER.info("Obtengo la editorial con el id" + id);
         return editorialRepository.findById(id).orElse(null);
     }
 
     //Obtiene un listado las editoriales por nombre
+    @Transactional(readOnly = true)
     public List<Editorial> getNombreEditorial(String nombreEditorial){
         LOGGER.info("Obtengo el nombre de Editorial" + nombreEditorial);
         return editorialRepository.findByNombreEditorial("nombreEditorial");
     }
 
     //Obtiene un listado de la cantidad de publicaciones de la editorial
+    @Transactional(readOnly = true)
     public List<Editorial> getNumeroEdiciones(int numeroEdiciones){
         LOGGER.info("El numero de ediciones es"+ numeroEdiciones);
         return editorialRepository.findByNumeroEdiciones(numeroEdiciones);

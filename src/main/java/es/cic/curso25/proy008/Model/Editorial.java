@@ -50,6 +50,7 @@ public class Editorial {
         return "Editorial [id=" + id + ", nombreEditorial=" + nombreEditorial + ", numeroEdiciones=" + numeroEdiciones
                 + "]";
     }
+    //hay que añadir o bien libro en editorial o bien editorial en libro
     
     @Override
     public int hashCode() {

@@ -4,6 +4,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import es.cic.curso25.proy008.Service.EditorialService;
 import es.cic.curso25.proy008.Service.LibroService;
@@ -20,6 +22,8 @@ import es.cic.curso25.proy008.Model.Libro;
 
 @RestController
 @RequestMapping("/libro")
+//añadir normalemnete en el metodo controller
+//en la clase que recibe el objeto tienes que escribir @Validate *** delante del body
 public class LibroController {
      private static final Logger LOGGER = LoggerFactory.getLogger(LibroController.class);
 
@@ -33,6 +37,9 @@ public class LibroController {
 
     //crear un libro (objeto)
     @PostMapping
+    //podemos aplicar notacion @RespondeStatus delante de los propios metodos en el controller
+    //@ResponseStatus(HttpStatus.CREATED) //solo salta si funciona correctamente
+    //*** 
     public Libro create (@RequestBody(required = true) Libro libro){
          LOGGER.info("Crear un libro"+ libro);
          
@@ -42,6 +49,16 @@ public class LibroController {
         return libroService.create(libro);
 
     }
+    //public ResponseEntity <Libro> create (@RequestBody(required = true) Libro libro){
+        // LOGGER.info("Crear un libro"+ libro);
+         
+        //if (libro.getId()!= null){
+          //  throw new LibroNoCreadoException(libro);
+        //}
+        //libro =  libroService.create(libro);
+       //return ResponseEntity.status(HttpStatusCode.valueOf(201)).body(libro);
+
+    //}
 
     //obtener todos los libros
      @GetMapping
@@ -76,6 +93,7 @@ public class LibroController {
 
     //Actualiza un registro de libro
     @PutMapping
+    //*** 
     public Libro update (@RequestBody Libro libro){
         LOGGER.info("Actualizar el libro"+libro);
          if (libro.getId() == null){
@@ -93,7 +111,8 @@ public class LibroController {
         libroService.delete(id);
     }
 
-    @PostMapping("/patrocinio")
+    @PostMapping("/editorial")
+    //*** 
     public Editorial create(@RequestBody Editorial editorial){
 
         Editorial editorialCreada = editorialService.create(editorial);

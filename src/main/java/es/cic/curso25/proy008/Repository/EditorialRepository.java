@@ -10,8 +10,8 @@ import es.cic.curso25.proy008.Model.Editorial;
 
 public interface EditorialRepository extends JpaRepository<Editorial,Long>{
 
-    Optional<Editorial> findById(Long id);
-    List<Editorial> findByNombreEditorial(String nombreLibro);
-    List<Editorial> findByNumeroEdiciones(int numeroEdiciones);
+    public Optional<Editorial> findById(Long id);
+    public List<Editorial> findByNombreEditorial(String nombreLibro);
+    public List<Editorial> findByNumeroEdiciones(int numeroEdiciones);
 
 }
