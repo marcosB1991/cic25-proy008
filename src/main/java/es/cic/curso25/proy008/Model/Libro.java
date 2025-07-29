@@ -1,11 +1,16 @@
 package es.cic.curso25.proy008.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -21,6 +26,12 @@ public class Libro {
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "editorial_id") 
     private Editorial editorial;
+
+
+    @OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE, CascadeType.REMOVE},
+                fetch = FetchType.EAGER
+                )
+    private List<Comprador> compradores = new ArrayList<>();
 
     public Editorial getEditorial() {
         return editorial;
@@ -79,4 +90,10 @@ public class Libro {
             return false;
         return true;
     }   
+    public List<Comprador> getCompradores() {
+        return compradores;
+    }
+    public void setCompradores(List<Comprador> compradores) {
+        this.compradores = compradores;
+    }
 }
